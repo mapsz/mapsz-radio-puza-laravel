@@ -1,8 +1,8 @@
-<template>  
+<template>
 <b-navbar toggleable="lg" type="light" variant="light">
   <b-navbar-brand href="/">🏠</b-navbar-brand>
   <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
-  
+
   <b-collapse id="nav-collapse" is-nav>
     <!-- Left -->
     <b-navbar-nav v-if="links">
@@ -21,11 +21,11 @@
         <div>
           <button @click="logout()" class="btn btn-sm btn-outline-danger" type="button">Выход</button>
         </div>
-      </div> 
+      </div>
     </b-navbar-nav>
 
   </b-collapse>
-  
+
 </b-navbar>
 </template>
 
@@ -41,7 +41,7 @@ export default {
     ...mapGetters({user:'user/getAuth'}),
     links(){
       if (navbar == undefined) return false;
-      
+
       console.log(this.user);
 
       let links = [];
@@ -52,17 +52,17 @@ export default {
 
         if (link.roles != undefined && Array.isArray(link.roles)){ //link got roles
           add = false;
-          if(this.user.roles != undefined && Array.isArray(this.user.roles)){ //user got roles       
+          if(this.user.roles != undefined && Array.isArray(this.user.roles)){ //user got roles
             link.roles.forEach(linkRole => {
               this.user.roles.forEach(userRole => {
                 if(linkRole == userRole.name) add = true;
-              });              
+              });
             });
-          }          
+          }
         }
 
         if(add) links.push(link);
-        
+
       });
 
       return links;
@@ -71,14 +71,14 @@ export default {
   mounted(){
     // this.links = navbar;
   },
-  methods:{    
+  methods:{
     ...mapActions({logout:'user/logout'}),
   },
 }
 </script>
 
 <style scoped>
-.navbar-nav{  
+.navbar-nav{
   font-size: 9pt;
 }
 </style>
